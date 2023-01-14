@@ -6,10 +6,6 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 
-router.get('/' , (req,res) => {
-    res.send("hello")
-})
-
 router.post('/signup' , (req,res) => {
     const {name,email,password} = req.body;
 
@@ -59,7 +55,8 @@ router.post('/signin',(req,res) => {
         .then(doMatch => {
             if(doMatch){
                 // res.json({message:"Successfully Signed In!"})
-                
+                const token = jwt.sign({_id:savedUser._id},"sahilkr26244")
+                res.json({token})
             }
             else{
                 return res.status(422).json({error:"Invalid Email or Password!"})

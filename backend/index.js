@@ -3,6 +3,7 @@ require('dotenv').config();
 const connectDB = require('./config/db');
 const cors = require('cors')
 const userRoutes = require('./routes/auth');
+const postRoutes = require('./routes/post');
 
 
 
@@ -18,6 +19,7 @@ app.get('/' , (req,res) => {
 })
 
 app.use('/users',userRoutes)
+app.use('/posts' , postRoutes)
 
 const PORT = process.env.PORT || 4040
 
