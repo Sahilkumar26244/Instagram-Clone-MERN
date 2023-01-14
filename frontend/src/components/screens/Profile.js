@@ -24,9 +24,9 @@ function Profile() {
                    <h4>Sahil Kumar</h4>
                    <h5></h5>
                    <div style={{display:"flex",justifyContent:"space-between",width:"108%"}}>
-                       <h6> posts</h6>
-                       <h6> followers</h6>
-                       <h6> following</h6>
+                       <h6>40 posts</h6>
+                       <h6>50 followers</h6>
+                       <h6>20 following</h6>
                    </div>
 
                </div>
