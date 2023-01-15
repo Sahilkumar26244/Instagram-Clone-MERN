@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import M from 'materialize-css';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,7 +10,38 @@ function CreatePost() {
   const [url,setUrl] = useState("");
 
   const navigate = useNavigate();
-  
+
+  useEffect(()=>{
+    if(url)
+    {
+      fetch('http://localhost:5000/posts/createpost',{
+      method:"post",
+      headers:{
+        "Content-Type":"application/json",
+        "Authorization":"Bearer "+localStorage.getItem('jwt')
+
+      },
+      body:JSON.stringify({
+        title,
+        body,
+        pic:url
+      })
+      }).then(res => res.json())
+      .then(data => {
+        console.log(data)
+        if(data.error){
+          M.toast({html: data.error,classes:'#d50000 red accent-4'})
+        }
+        else{
+          M.toast({html:'Created Post Succesfully!',classes:'#1de9b6 teal accent-3'})
+          navigate('/')
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    }
+    
+  },[url])
 
   const postDetails = () => {
     const data = new FormData()
@@ -23,37 +54,14 @@ function CreatePost() {
     })
     .then(res => res.json())
     .then(data => {
-      console.log(data)
+      // console.log(data)
       setUrl(data.url)
     })
     .catch(err => {
       console.log(err)
     })
 
-    fetch('http://localhost:5000/posts/createpost',{
-      method:"post",
-      headers:{
-        "Content-Type":"application/json"
-
-      },
-      body:JSON.stringify({
-        title,
-        body,
-        pic:url
-      })
-    }).then(res => res.json())
-    .then(data => {
-      console.log(data)
-      if(data.error){
-        M.toast({html: data.error,classes:'#d50000 red accent-4'})
-      }
-      else{
-        M.toast({html:'Created Post Succesfully!',classes:'#1de9b6 teal accent-3'})
-        navigate('/')
-      }
-    }).catch(err => {
-      console.log(err)
-    })
+    
 
 
   }

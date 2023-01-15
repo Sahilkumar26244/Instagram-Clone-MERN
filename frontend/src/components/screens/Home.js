@@ -1,20 +1,39 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 function Home() {
+  const [data,setData] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:5000/posts/allpost",{
+      headers:{
+        "Authorization":"Bearer "+localStorage.getItem('jwt')
+      }
+    }).then(res => res.json())
+    .then(result => {
+      console.log(result)
+      setData(result.posts)
+    })
+  },[])
   return (
     <div className='home' >
-        <div className='card home-card' >
-            <h5>ramesh</h5>
-            <div className='card-image' >
-                <img src='https://images.unsplash.com/photo-1670272504471-61a632484750?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxzZWFyY2h8MXx8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60' />
-            </div>
-            <div className='card-content' >
-                <i className="material-icons" style={{color:"red",cursor:"pointer"}} >favorite</i>
-                <h6>Title</h6>
-                <p>This is a amazing </p>
-                <input type='text' placeholder='add a comment' />
-            </div>
-        </div>
+    {
+      data.reverse().map(item => {
+        return (
+          <div className='card home-card' key={item._id} >
+          <h5>{item.postedBy.name}</h5>
+          <div className='card-image' >
+              <img src={item.photo} />
+          </div>
+          <div className='card-content' >
+              <i className="material-icons" style={{color:"red",cursor:"pointer"}} >favorite</i>
+              <h6>{item.title}</h6>
+              <p>{item.body}</p>
+              <input type='text' placeholder='add a comment' />
+          </div>
+          </div>
+        )}
+      )
+    }
+        
     </div>  
   )
 }

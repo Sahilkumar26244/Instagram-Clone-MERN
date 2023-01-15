@@ -15,7 +15,7 @@ router.post('/createpost' ,requireLogin, (req,res) => {
     const post = new Post({
         title,
         body,
-        pic,
+        photo:pic,
         postedBy:req.user
     })
     post.save().then(result => {
@@ -26,7 +26,7 @@ router.post('/createpost' ,requireLogin, (req,res) => {
     })
 })
 
-router.get('/allpost' , (req,res) => {
+router.get('/allpost' ,requireLogin, (req,res) => {
     Post.find()
     .populate("postedBy","_id name")
     .then(posts => {
