@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom';
 import { UserContext } from '../../App';
 
 function Home() {
@@ -124,7 +125,7 @@ function Home() {
         return (
           <div className='card home-card' key={item._id} >
           <h5>
-            {item.postedBy.name} 
+           <Link to={item.postedBy._id !== state._id ? '/profile/'+item.postedBy._id:"/profile"} >{item.postedBy.name}</Link> 
               {item.postedBy._id == state._id
               && <i className="material-icons" style={{color:"red",cursor:"pointer",float:"right"}} onClick={() => deletepost(item._id)} >delete</i>
               } 
