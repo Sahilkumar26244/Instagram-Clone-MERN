@@ -20,7 +20,8 @@ function Navbar() {
           }} className="btn waves-effect waves-light #f44336 red" >
             LogOut
           </button>
-        </li>
+        </li>,
+        <li><Link to="/subscribe">Following Post</Link></li>
       ]
     }
     else{

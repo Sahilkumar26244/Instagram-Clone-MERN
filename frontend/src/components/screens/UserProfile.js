@@ -4,12 +4,13 @@ import { UserContext } from '../../App';
 
 function UserProfile() {
     const [userProfile,setProfile] = useState(null);
-    const [showfollow,setShowFollow] = useState(true);
+    
 
     const {state,dispatch} = useContext(UserContext);
 
     const {userid} = useParams()
-    console.log(userid)
+    // console.log(userid)
+    const [showfollow,setShowFollow] = useState(state?!state.following.includes(userid):true);
 
     useEffect(()=>{
         fetch(`http://localhost:5000/users/user/${userid}`,{

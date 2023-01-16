@@ -61,8 +61,6 @@ function CreatePost() {
       console.log(err)
     })
 
-    
-
 
   }
 

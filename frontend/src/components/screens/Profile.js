@@ -5,6 +5,9 @@ function Profile() {
     const [mypics,setPics] = useState([]);
     const {state,dispatch} = useContext(UserContext);
 
+    const [image,setImage] = useState("")
+    const [url,setUrl] = useState(undefined)
+
     useEffect(()=>{
         fetch('http://localhost:5000/posts/mypost',{
             headers:{
@@ -17,6 +20,34 @@ function Profile() {
         })
     },[])
 
+    useEffect(()=>{
+        if(image){
+            const data = new FormData()
+            data.append("file",image)
+            data.append("upload_preset","instagram-clone")
+            data.append("cloud_name","dmzzzl5jj")
+            fetch("https://api.cloudinary.com/v1_1/dmzzzl5jj/image/upload",{
+                method:"post",
+                body:data
+                })
+                .then(res => res.json())
+                .then(data => {
+                // console.log(data)
+                    setUrl(data.url)
+                    localStorage.setItem("user",JSON.stringify({...state,pic:data.url}))
+                    dispatch({type:"UPDATEPIC",payload:data.url})
+                    window.location.reload()
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        }
+    },[image])
+
+    const updatePic = (file) => {
+        setImage(file)
+        
+    }
   return (
     <div style={{maxWidth:"550px",margin:"0px auto"}}>
            <div style={{
@@ -31,8 +62,8 @@ function Profile() {
               
            }}>
                <div>
-                   <img style={{width:"160px",height:"160px",borderRadius:"80px"}}
-                   src='https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60'
+                   <img style={{width:"100%",height:"160px",width:"160px",borderRadius:"80px"}}
+                   src={state?state.pic:"loading"}
                    />
                  
                </div>
@@ -51,7 +82,7 @@ function Profile() {
             <div className="file-field input-field" style={{margin:"10px"}}>
             <div className="btn #64b5f6 blue darken-1">
                 <span>Update pic</span>
-                <input type="file" />
+                <input type="file" onChange={(e) => updatePic(e.target.files[0])} />
             </div>
             <div className="file-path-wrapper">
                 <input className="file-path validate" type="text" />
