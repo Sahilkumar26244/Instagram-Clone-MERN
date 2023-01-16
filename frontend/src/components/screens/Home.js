@@ -101,13 +101,30 @@ function Home() {
     })
   }
 
+  const deletepost = (postId) => {
+    fetch(`http://localhost:5000/posts/deletepost/${postId}`,{
+      method:"delete",
+      headers:{
+        "Authorization":"Bearer "+localStorage.getItem('jwt')
+      }
+    }).then(res => res.json())
+    .then(result => {
+      console.log(result)
+    })
+  }
+
   return (
     <div className='home' >
     {
       data.map(item => {
         return (
           <div className='card home-card' key={item._id} >
-          <h5>{item.postedBy.name}</h5>
+          <h5>
+            {item.postedBy.name} 
+              {item.postedBy._id == state._id
+              && <i className="material-icons" style={{color:"red",cursor:"pointer",float:"right"}} >delete</i>
+              } 
+          </h5>
           <div className='card-image' >
               <img src={item.photo} />
           </div>
@@ -123,7 +140,7 @@ function Home() {
               {
                 item.comments.map(record => {
                   return (
-                    <h6><span style={{fontWeight:"bolder"}} >{record.postedBy.name} </span>{record.text}</h6>
+                    <h6 key={record._id} ><span style={{fontWeight:"bolder"}} >{record.postedBy.name} </span>{record.text}</h6>
                   )
                 })
               }
