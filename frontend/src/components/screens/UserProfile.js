@@ -13,7 +13,7 @@ function UserProfile() {
     const [showfollow,setShowFollow] = useState(state?!state.following.includes(userid):true);
 
     useEffect(()=>{
-        fetch(`http://localhost:5000/users/user/${userid}`,{
+        fetch(`https://instagram-clone-n5tk.onrender.com/users/user/${userid}`,{
             headers:{
                 "Authorization":"Bearer "+localStorage.getItem('jwt')
             }
@@ -26,7 +26,7 @@ function UserProfile() {
     },[])
 
     const followUser = () => {
-        fetch('http://localhost:5000/users/follow',{
+        fetch('https://instagram-clone-n5tk.onrender.com/users/follow',{
             method:"put",
             headers:{
                 "Content-Type":"application/json",
@@ -55,7 +55,7 @@ function UserProfile() {
     }
 
     const unfollowUser = () => {
-        fetch('http://localhost:5000/users/unfollow',{
+        fetch('https://instagram-clone-n5tk.onrender.com/users/unfollow',{
             method:"put",
             headers:{
                 "Content-Type":"application/json",

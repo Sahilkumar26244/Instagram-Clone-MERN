@@ -14,7 +14,7 @@ function CreatePost() {
   useEffect(()=>{
     if(url)
     {
-      fetch('http://localhost:5000/posts/createpost',{
+      fetch('https://instagram-clone-n5tk.onrender.com/posts/createpost',{
       method:"post",
       headers:{
         "Content-Type":"application/json",

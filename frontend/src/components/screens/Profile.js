@@ -9,7 +9,7 @@ function Profile() {
     const [url,setUrl] = useState(undefined)
 
     useEffect(()=>{
-        fetch('http://localhost:5000/posts/mypost',{
+        fetch('https://instagram-clone-n5tk.onrender.com/posts/mypost',{
             headers:{
                 "Authorization":"Bearer "+localStorage.getItem('jwt')
             }
@@ -33,10 +33,23 @@ function Profile() {
                 .then(res => res.json())
                 .then(data => {
                 // console.log(data)
-                    setUrl(data.url)
-                    localStorage.setItem("user",JSON.stringify({...state,pic:data.url}))
-                    dispatch({type:"UPDATEPIC",payload:data.url})
-                    window.location.reload()
+                    
+                    fetch('https://instagram-clone-n5tk.onrender.com/users/updatepic',{
+                        method:"put",
+                        headers:{
+                            "Content-Type":"application/json",
+                            "Authorization":"Bearer "+localStorage.getItem('jwt')
+                        },
+                        body:JSON.stringify({
+                            pic:data.url
+                        })
+                    }).then(res => res.json())
+                    .then(result => {
+                        localStorage.setItem("user",JSON.stringify({...state,pic:result.pic}))
+                        dispatch({type:"UPDATEPIC",payload:result.pic})
+                        
+                    })
+                    
                 })
                 .catch(err => {
                     console.log(err)

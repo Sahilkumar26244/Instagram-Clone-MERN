@@ -9,7 +9,7 @@ function SubscribeUserPost() {
 
 
   useEffect(() => {
-    fetch("http://localhost:5000/posts/getsubpost",{
+    fetch("https://instagram-clone-n5tk.onrender.com/posts/getsubpost",{
       headers:{
         "Authorization":"Bearer "+localStorage.getItem('jwt')
       }
@@ -21,7 +21,7 @@ function SubscribeUserPost() {
   },[])
 
   const likePost = (id) => {
-      fetch('http://localhost:5000/posts/like',{
+      fetch('https://instagram-clone-n5tk.onrender.com/posts/like',{
         method:"put",
         headers:{
           "Content-Type":"application/json",
@@ -48,7 +48,7 @@ function SubscribeUserPost() {
   }
 
   const unlikePost = (id) => {
-      fetch('http://localhost:5000/posts/unlike',{
+      fetch('https://instagram-clone-n5tk.onrender.com/posts/unlike',{
         method:"put",
         headers:{
           "Content-Type":"application/json",
@@ -75,7 +75,7 @@ function SubscribeUserPost() {
   }
 
   const makeComment = (text,postId) => {
-    fetch('http://localhost:5000/posts/comment',{
+    fetch('https://instagram-clone-n5tk.onrender.com/posts/comment',{
       method:"put",
       headers:{
         "Content-Type":"application/json",
@@ -103,7 +103,7 @@ function SubscribeUserPost() {
   }
 
   const deletepost = (postId) => {
-    fetch(`http://localhost:5000/posts/deletepost/${postId}`,{
+    fetch(`https://instagram-clone-n5tk.onrender.com/posts/deletepost/${postId}`,{
       method:"delete",
       headers:{
         "Authorization":"Bearer "+localStorage.getItem('jwt')

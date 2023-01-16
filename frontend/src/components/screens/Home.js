@@ -9,7 +9,7 @@ function Home() {
 
 
   useEffect(() => {
-    fetch("http://localhost:5000/posts/allpost",{
+    fetch("https://instagram-clone-n5tk.onrender.com/posts/allpost",{
       headers:{
         "Authorization":"Bearer "+localStorage.getItem('jwt')
       }
@@ -21,7 +21,7 @@ function Home() {
   },[])
 
   const likePost = (id) => {
-      fetch('http://localhost:5000/posts/like',{
+      fetch('https://instagram-clone-n5tk.onrender.com/posts/like',{
         method:"put",
         headers:{
           "Content-Type":"application/json",
@@ -48,7 +48,7 @@ function Home() {
   }
 
   const unlikePost = (id) => {
-      fetch('http://localhost:5000/posts/unlike',{
+      fetch('https://instagram-clone-n5tk.onrender.com/posts/unlike',{
         method:"put",
         headers:{
           "Content-Type":"application/json",
@@ -75,7 +75,7 @@ function Home() {
   }
 
   const makeComment = (text,postId) => {
-    fetch('http://localhost:5000/posts/comment',{
+    fetch('https://instagram-clone-n5tk.onrender.com/posts/comment',{
       method:"put",
       headers:{
         "Content-Type":"application/json",
@@ -103,7 +103,7 @@ function Home() {
   }
 
   const deletepost = (postId) => {
-    fetch(`http://localhost:5000/posts/deletepost/${postId}`,{
+    fetch(`https://instagram-clone-n5tk.onrender.com/posts/deletepost/${postId}`,{
       method:"delete",
       headers:{
         "Authorization":"Bearer "+localStorage.getItem('jwt')
@@ -129,7 +129,12 @@ function Home() {
             {item.postedBy.name}
            </Link> 
               {item.postedBy._id == state._id
-                && <i className="material-icons" style={{color:"red",cursor:"pointer",float:"right",padding:"10px"}} onClick={() => deletepost(item._id)} >delete</i>
+                && 
+                <div style={{display:"flex",float:"right",gap:"20px"}} >
+                <i className="material-icons" style={{color:"red",cursor:"pointer",float:"right"}} onClick={() => deletepost(item._id)} >delete</i>
+                <i class="material-icons" style={{color:"red",cursor:"pointer",float:"right"}} >create</i>
+                </div>
+                
               } 
           </h5>
           <div className='card-image' >
