@@ -15,7 +15,7 @@ function SignUp() {
            M.toast({html: 'Invalid Email!',classes:'#d50000 red accent-4'})
            return
       }
-        fetch('http://localhost:5000/users/signup',{
+        fetch('http://localhost:5000/auth/signup',{
           method:'POST',
           headers:{
             'Content-Type':"application/json"

@@ -2,8 +2,9 @@ const express = require("express");
 require('dotenv').config();
 const connectDB = require('./config/db');
 const cors = require('cors')
-const userRoutes = require('./routes/auth');
+const authRoutes = require('./routes/auth');
 const postRoutes = require('./routes/post');
+const userRoutes = require('./routes/user');
 
 
 
@@ -18,8 +19,10 @@ app.get('/' , (req,res) => {
     res.send('welcome!')
 })
 
-app.use('/users',userRoutes)
+app.use('/auth',authRoutes)
 app.use('/posts' , postRoutes)
+app.use('/users' , userRoutes)
+
 
 const PORT = process.env.PORT || 4040
 

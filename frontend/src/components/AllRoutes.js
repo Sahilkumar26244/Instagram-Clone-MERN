@@ -6,6 +6,7 @@ import Home from './screens/Home'
 import Login from './screens/Login'
 import Profile from './screens/Profile'
 import SignUp from './screens/SignUp'
+import UserProfile from './screens/UserProfile'
 
 function AllRoutes() {
   const navigate = useNavigate()
@@ -22,10 +23,11 @@ function AllRoutes() {
   return (
     <Routes>
         <Route path='/' element={<Home/>} />
-        <Route path='/profile' element={<Profile/>} />
+        <Route exact path='/profile' element={<Profile/>} />
         <Route path='/login' element={<Login/>} />
         <Route path='/signup' element={<SignUp/>} />
         <Route path='create' element={<CreatePost/>} />
+        <Route path='profile/:userid' element={<UserProfile/>} />
     </Routes>
   )
 }

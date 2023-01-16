@@ -31,7 +31,7 @@ function Home() {
         })
       }).then(res => res.json())
       .then(result => {
-        console.log(result,"sad")
+        // console.log(result,"sad")
         const newData = data.map(item => {
           if(item._id == result._id){
             return result
@@ -86,7 +86,7 @@ function Home() {
       })
     }).then(res => res.json())
     .then(result => {
-      console.log(result)
+      // console.log(result)
       const newData = data.map(item => {
         if(item._id == result._id){
           return result
@@ -109,7 +109,11 @@ function Home() {
       }
     }).then(res => res.json())
     .then(result => {
-      console.log(result)
+      // console.log(result)
+      const newData = data.filter(item=>{
+        return item._id !== result._id
+      })
+      setData(newData)
     })
   }
 
@@ -122,7 +126,7 @@ function Home() {
           <h5>
             {item.postedBy.name} 
               {item.postedBy._id == state._id
-              && <i className="material-icons" style={{color:"red",cursor:"pointer",float:"right"}} >delete</i>
+              && <i className="material-icons" style={{color:"red",cursor:"pointer",float:"right"}} onClick={() => deletepost(item._id)} >delete</i>
               } 
           </h5>
           <div className='card-image' >
@@ -140,7 +144,9 @@ function Home() {
               {
                 item.comments.map(record => {
                   return (
+                    
                     <h6 key={record._id} ><span style={{fontWeight:"bolder"}} >{record.postedBy.name} </span>{record.text}</h6>
+                    
                   )
                 })
               }
