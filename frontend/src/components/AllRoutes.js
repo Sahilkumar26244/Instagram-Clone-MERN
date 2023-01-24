@@ -4,7 +4,9 @@ import { UserContext } from '../App'
 import CreatePost from './screens/CreatePost'
 import Home from './screens/Home'
 import Login from './screens/Login'
+import Newpassword from './screens/Newpassword'
 import Profile from './screens/Profile'
+import Reset from './screens/Reset'
 import SignUp from './screens/SignUp'
 import SubscribeUserPost from './screens/SubscribeUserPost'
 import UserProfile from './screens/UserProfile'
@@ -30,6 +32,8 @@ function AllRoutes() {
         <Route path='/create' element={<CreatePost/>} />
         <Route path='/profile/:userid' element={<UserProfile/>} />
         <Route path='/subscribe' element={<SubscribeUserPost/>} />
+        <Route exact path='/reset' element={<Reset/>} />
+        <Route path='/reset/:token' element={<Newpassword/>} />
     </Routes>
   )
 }
